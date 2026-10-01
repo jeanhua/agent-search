@@ -19,6 +19,44 @@ search:
 #   - name: bing
 #     weight: 1.5         # 中文搜索可调高 bing / duckduckgo 权重
 
+# ★ 出口 IP 为数据中心/VPN 时，主流引擎（google/bing/duckduckgo/brave/startpage/
+#   baidu/qwant 等）会返回 CAPTCHA 或 403，/search 结果为空。实测 yep 引擎可用，
+#   需要时取消下面的注释（禁用被封引擎、保留宽容引擎）：
+# engines:
+#   - name: google
+#     disabled: true
+#   - name: google cse
+#     disabled: true
+#   - name: duckduckgo
+#     disabled: true
+#   - name: brave
+#     disabled: true
+#   - name: startpage
+#     disabled: true
+#   - name: qwant
+#     disabled: true
+#   - name: baidu
+#     disabled: true
+#   - name: mojeek
+#     disabled: true
+#   - name: wikipedia
+#     disabled: true
+#   - name: wikidata
+#     disabled: true
+#   - name: bing
+#     disabled: true
+#   - name: yep
+#     disabled: false
+
 # 部分引擎响应慢时可调低超时（秒）
 # outgoing:
 #   request_timeout: 5
+
+# 换用代理出口可缓解引擎封 IP（需代理出口 IP 本身未被风控）：
+# Docker Desktop 下容器可走其内置透传代理 http://http.docker.internal:3128
+# （需 Docker Desktop 已配置代理）；Linux 服务器换成宿主机代理地址。
+# outgoing:
+#   proxies:
+#     all://:
+#       - http://http.docker.internal:3128
+#   extra_proxy_timeout: 5
