@@ -1,7 +1,7 @@
-# Go 构建产物
-agent-search
-agent-search.exe
-agent-search.exe~
+# Go 构建产物（锚定仓库根目录，避免误伤 cmd/agent-search/ 源码目录）
+/agent-search
+/agent-search.exe
+/agent-search.exe~
 *.exe
 
 # 临时文件

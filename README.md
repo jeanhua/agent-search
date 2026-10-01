@@ -15,6 +15,8 @@
 docker compose up -d --build
 ```
 
+不想本地构建的话，可以直接用 Docker Hub 上发布好的镜像：把 `docker-compose.yml` 里 `reader` 服务的 `build:` 段去掉、`image:` 改为 `jeanhua/agent-search:latest`。
+
 启动后：
 
 - SearXNG：`http://127.0.0.1:8888`
@@ -125,6 +127,14 @@ curl -s http://127.0.0.1:8000/healthz
 | `CACHE_SIZE` | `512` | 缓存条目上限 |
 | `CACHE_TTL` | `1h` | 缓存有效期 |
 | `MAX_HTML_BYTES` | `4194304` | 单页最大下载大小 |
+
+## 发布
+
+推送 `v*.*.*` 格式的标签（如 `v0.1.0`），GitHub Actions 会自动构建 linux/amd64 + linux/arm64 镜像并发布到 Docker Hub（打 `1.2.3`、`1.2`、`latest` 三个 tag）：
+
+```bash
+git tag v0.1.0 && git push origin v0.1.0
+```
 
 ## 本地开发
 
