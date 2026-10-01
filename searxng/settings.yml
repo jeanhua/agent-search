@@ -1,0 +1,24 @@
+use_default_settings: true
+
+server:
+  # 注意：secret_key 请改为自己生成的随机值：openssl rand -hex 32
+  secret_key: "e5837e6a5e089b9e0fe1ae9ed737ea607510663f02235fce9f5f96448cd55c22"
+  limiter: false          # 私有实例关掉限流 → 不需要 Redis，更轻
+  public_instance: false
+  image_proxy: true       # 可选：搜索结果里的图片走代理
+
+search:
+  formats:
+    - html
+    - json                # ★ 关键：开启 JSON API，供 agent-search /search 使用
+
+# 引擎可按需调整（默认已带 100+）
+# engines:
+#   - name: google
+#     disabled: true      # 某些引擎被封时逐个禁用
+#   - name: bing
+#     weight: 1.5         # 中文搜索可调高 bing / duckduckgo 权重
+
+# 部分引擎响应慢时可调低超时（秒）
+# outgoing:
+#   request_timeout: 5

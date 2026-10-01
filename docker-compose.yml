@@ -1,0 +1,42 @@
+# 轻量 AI 联网方案：SearXNG（搜索）+ Go Reader 服务（阅读）
+# 启动：docker compose up -d --build
+services:
+  searxng:
+    image: searxng/searxng:latest
+    container_name: agent-search-searxng
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8888:8080"     # 只绑本机，不直接对外
+    environment:
+      - SEARXNG_BASE_URL=http://127.0.0.1:8888/
+    volumes:
+      - ./searxng:/etc/searxng:rw
+    mem_limit: 512m
+    cpus: 1.0
+
+  reader:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: agent-search:latest
+    container_name: agent-search-reader
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8000:8000"     # 只绑本机，不直接对外
+    environment:
+      - LISTEN_ADDR=0.0.0.0:8000
+      - SEARXNG_URL=http://searxng:8080
+      - ALLOW_PRIVATE=true        # 本机/代理 DNS 环境调试用（198.18.x.x 保留段会被拦截）；上生产请改回 false 保持 SSRF 防护
+      # - API_KEY=改成随机字符串   # 对外暴露时启用 Bearer 鉴权
+      # - CACHE_SIZE=512
+      # - CACHE_TTL=1h
+    depends_on:
+      - searxng
+    mem_limit: 256m
+    cpus: 1.0
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8000/healthz"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+

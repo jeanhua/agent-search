@@ -1,0 +1,13 @@
+.git
+.gitignore
+*.exe
+agent-search.exe~
+body.json
+resp.json
+*.log
+README.md
+searxng-trafilatura-solution.md
+.env
+.env.*
+.idea
+.vscode
