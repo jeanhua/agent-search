@@ -11,11 +11,9 @@
 需要 Docker + Docker Compose。
 
 ```bash
-# 启动（首次会自动构建镜像并拉取 SearXNG）
-docker compose up -d --build
+# 启动（首次会自动拉取镜像）
+docker compose up -d
 ```
-
-不想本地构建的话，可以直接用 Docker Hub 上发布好的镜像：把 `docker-compose.yml` 里 `reader` 服务的 `build:` 段去掉、`image:` 改为 `jeanhua/agent-search:latest`。
 
 启动后：
 

@@ -1,5 +1,5 @@
 # 轻量 AI 联网方案：SearXNG（搜索）+ Go Reader 服务（阅读）
-# 启动：docker compose up -d --build
+# 启动：docker compose up -d
 services:
   searxng:
     image: searxng/searxng:latest
@@ -15,10 +15,7 @@ services:
     cpus: 1.0
 
   reader:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: agent-search:latest
+    image: jeanhua/agent-search:latest
     container_name: agent-search-reader
     restart: unless-stopped
     ports:
